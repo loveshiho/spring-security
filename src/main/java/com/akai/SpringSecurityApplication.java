@@ -1,4 +1,4 @@
-package com.akai.springsecurity;
+package com.akai;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
