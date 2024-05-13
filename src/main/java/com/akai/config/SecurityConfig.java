@@ -36,6 +36,10 @@ public class SecurityConfig {
                 // .httpBasic(withDefaults()); // 基本授权方式
         // 关闭csrf攻击防御
         http.csrf(csrf -> csrf.disable());
+        // 请求未认证的处理
+        http.exceptionHandling(exception->{
+            exception.authenticationEntryPoint(new AuthenticationEntryPointConfig());
+        });
         return http.build();
     }
     /*@Bean
