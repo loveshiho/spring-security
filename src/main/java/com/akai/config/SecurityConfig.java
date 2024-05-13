@@ -28,7 +28,10 @@ public class SecurityConfig {
                             .loginPage("/login").permitAll()    // 无需授权即可访问当前页面
                             .usernameParameter("username") // 自定义表单用户名参数，默认是 username
                             .passwordParameter("password") // 自定义表单密码参数，默认是 password
-                            .failureUrl("/login?error"); // 登录失败的返回地址，默认是 error
+                            .failureUrl("/login?error") // 登录失败的返回地址，默认是 error
+                            .successHandler(new AuthenticationSuccessHandlerConfig())   // 认证成功时的处理
+                            .failureHandler(new AuthenticationFailureHandlerConfig())   // 认证失败时的处理
+                    ;
                 });  // 表单授权方式
                 // .httpBasic(withDefaults()); // 基本授权方式
         // 关闭csrf攻击防御
