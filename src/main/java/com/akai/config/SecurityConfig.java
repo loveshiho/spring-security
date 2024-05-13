@@ -2,12 +2,14 @@ package com.akai.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity
 public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -19,7 +21,7 @@ public class SecurityConfig {
                         // 有权限就放行，没权限被拦截
                         /*.requestMatchers("user/list").hasAuthority("USER_LIST")
                         .requestMatchers("user/add").hasAuthority("USER_ADD")*/
-                        .requestMatchers("user/**").hasRole("ADMIN")
+                        // .requestMatchers("user/**").hasRole("ADMIN")
                         // 对所有请求开启授权保护
                         .anyRequest()
                         // 已认证请求会自动被授权
