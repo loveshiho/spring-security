@@ -6,8 +6,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 
-import static org.springframework.security.config.Customizer.withDefaults;
-
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
@@ -17,11 +15,14 @@ public class SecurityConfig {
         // anyRequest()：对所有请求开启授权保护
         // authenticated()：已认证请求会自动被授权
         // 开启授权保护
-        http.authorizeRequests(authorize -> authorize.
+        http.authorizeRequests(authorize -> authorize
+                        // 有权限就放行，没权限被拦截
+                        .requestMatchers("user/list").hasAuthority("USER_LIST")
+                        .requestMatchers("user/add").hasAuthority("USER_ADD")
                         // 对所有请求开启授权保护
-                                anyRequest().
+                        .anyRequest()
                         // 已认证请求会自动被授权
-                                authenticated())
+                        .authenticated())
                 // withDefaults()：生成默认的登录和登出页面
                 .formLogin(form -> {
                     form
@@ -39,6 +40,8 @@ public class SecurityConfig {
         // 请求未认证的处理
         http.exceptionHandling(exception->{
             exception.authenticationEntryPoint(new AuthenticationEntryPointConfig());
+            // 这里也可以用匿名内部类实现
+            exception.accessDeniedHandler(new AccessDeniedHandlerConfig());
         });
         return http.build();
     }
