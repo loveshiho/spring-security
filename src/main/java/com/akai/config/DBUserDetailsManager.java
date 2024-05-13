@@ -83,14 +83,22 @@ public class DBUserDetailsManager implements UserDetailsManager, UserDetailsPass
                     return "USER_ADD";
                 }
             });
-            return new org.springframework.security.core.userdetails.User(
+            /*return new org.springframework.security.core.userdetails.User(
                     user.getUsername(),
                     user.getPassword(),
                     user.getEnabled(),
                     true, // 用户账号是否未过期
                     true,   // 用户凭证是否未过期
                     true,   // 用户是否未被锁定
-                    authorities);
+                    authorities);*/
+            return org.springframework.security.core.userdetails.User
+                    .withUsername(user.getUsername())
+                    .password(user.getPassword())
+                    .disabled(!user.getEnabled())
+                    .credentialsExpired(false)
+                    .accountLocked(false)
+                    .roles("ADMIN")
+                    .build();
         }
     }
 }

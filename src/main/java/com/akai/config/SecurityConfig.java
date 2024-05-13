@@ -17,8 +17,9 @@ public class SecurityConfig {
         // 开启授权保护
         http.authorizeRequests(authorize -> authorize
                         // 有权限就放行，没权限被拦截
-                        .requestMatchers("user/list").hasAuthority("USER_LIST")
-                        .requestMatchers("user/add").hasAuthority("USER_ADD")
+                        /*.requestMatchers("user/list").hasAuthority("USER_LIST")
+                        .requestMatchers("user/add").hasAuthority("USER_ADD")*/
+                        .requestMatchers("user/**").hasRole("ADMIN")
                         // 对所有请求开启授权保护
                         .anyRequest()
                         // 已认证请求会自动被授权
