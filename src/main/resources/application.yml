@@ -3,3 +3,11 @@ spring:
     user:
       name: admin
       password: shiho
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/db_01
+    username: root
+    password: zt20040801.
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
